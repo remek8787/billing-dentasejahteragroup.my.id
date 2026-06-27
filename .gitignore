@@ -1,0 +1,7 @@
+.env
+storage/
+*.sqlite
+*.db
+*.xls
+*.xlsx
+.DS_Store
