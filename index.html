@@ -3,12 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Billing Dentasejahteragroup</title>
+  <title>Billing Dentanet</title>
   <style>
-    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f8fafc;color:#0f172a;font-family:Arial,system-ui,sans-serif}
-    main{max-width:680px;margin:24px;padding:34px;border:1px solid #e2e8f0;border-radius:24px;background:white;box-shadow:0 24px 70px #0f172a14;text-align:center}
-    h1{margin:0 0 10px;font-size:30px}p{color:#64748b;line-height:1.6}.badge{display:inline-block;background:#e0f2fe;color:#075985;border-radius:999px;padding:8px 12px;font-weight:700;margin-bottom:16px}
+    :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#10243d;--line:#203a5f;--text:#eaf2ff;--muted:#8ea7c7;--blue:#2e8cff;--cyan:#2dd4bf;--gold:#f8c537;--red:#fb7185;--green:#34d399;--shadow:0 24px 80px rgba(0,0,0,.35)}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,#123b70 0,#07111f 42%,#040912 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;min-height:100vh}button,input,select{font:inherit}.login{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(960px,100%);display:grid;grid-template-columns:1.1fr .9fr;background:rgba(13,27,46,.8);border:1px solid rgba(255,255,255,.09);border-radius:34px;overflow:hidden;box-shadow:var(--shadow);backdrop-filter:blur(18px)}.brand-side{padding:46px;background:linear-gradient(145deg,rgba(46,140,255,.25),rgba(45,212,191,.08));position:relative;overflow:hidden}.brand-side:after{content:"";position:absolute;right:-120px;bottom:-120px;width:320px;height:320px;border-radius:50%;background:rgba(248,197,55,.18)}.logo{display:flex;gap:14px;align-items:center}.logo img{width:62px;height:62px;border-radius:18px;object-fit:contain;background:white;padding:8px}.logo b{font-size:24px}.tag{display:inline-flex;gap:8px;align-items:center;padding:9px 13px;border-radius:999px;background:rgba(248,197,55,.14);border:1px solid rgba(248,197,55,.35);color:#ffe08a;font-weight:800;margin-top:34px}.hero-title{font-size:46px;line-height:1.05;margin:18px 0 12px;letter-spacing:-1.5px}.hero-copy{color:#c7d7eb;line-height:1.7;max-width:520px}.login-form{padding:46px}.field{display:grid;gap:8px;margin:16px 0}.field label{color:#c7d7eb;font-weight:700;font-size:14px}.field input,.field select{width:100%;padding:15px 16px;border-radius:16px;border:1px solid var(--line);background:#081525;color:var(--text);outline:none}.btn{border:0;border-radius:16px;padding:13px 16px;background:linear-gradient(135deg,var(--blue),#1fb7ff);color:white;font-weight:900;cursor:pointer;box-shadow:0 12px 34px rgba(46,140,255,.28)}.btn.secondary{background:#132640;border:1px solid var(--line);box-shadow:none}.btn.gold{background:linear-gradient(135deg,#f8c537,#f59e0b);color:#162033}.app{display:none;min-height:100vh}.shell{display:grid;grid-template-columns:280px 1fr}.sidebar{position:sticky;top:0;height:100vh;padding:24px;background:rgba(7,17,31,.82);border-right:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px)}.nav{display:grid;gap:8px;margin-top:28px}.nav button{width:100%;text-align:left;padding:13px 14px;border-radius:16px;border:1px solid transparent;background:transparent;color:#c7d7eb;cursor:pointer;font-weight:800}.nav button.active,.nav button:hover{background:#10243d;border-color:#24436d;color:white}.main{padding:26px 30px 44px}.topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:22px}.topbar h1{margin:0;font-size:30px;letter-spacing:-.8px}.sub{color:var(--muted);margin-top:5px}.actions{display:flex;gap:10px;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:linear-gradient(180deg,rgba(16,36,61,.95),rgba(9,22,38,.95));border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:20px;box-shadow:0 18px 45px rgba(0,0,0,.18)}.metric{display:flex;justify-content:space-between;gap:12px}.metric small,.muted{color:var(--muted)}.metric strong{display:block;font-size:30px;margin-top:9px}.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px}.pill.green{background:rgba(52,211,153,.14);color:#8ff0c8}.pill.red{background:rgba(251,113,133,.14);color:#ff9aaa}.pill.gold{background:rgba(248,197,55,.15);color:#ffe08a}.pill.blue{background:rgba(46,140,255,.15);color:#9bc9ff}.section{margin-top:18px;display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:18px 0 12px}.search{display:flex;gap:10px;flex-wrap:wrap}.search input,.search select{padding:12px 13px;border-radius:14px;border:1px solid var(--line);background:#081525;color:white}.table-wrap{overflow:auto;border-radius:20px;border:1px solid rgba(255,255,255,.08)}table{width:100%;border-collapse:collapse;min-width:1120px;background:#091626}th,td{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.07);text-align:left;vertical-align:middle}th{font-size:12px;color:#a9bed8;text-transform:uppercase;letter-spacing:.5px;background:#0e2138}td{color:#dce9fb}.mini-actions{display:flex;gap:6px}.mini-actions button{border:1px solid var(--line);background:#10243d;color:white;border-radius:10px;padding:7px 9px;cursor:pointer;font-size:12px;font-weight:800}.list{display:grid;gap:10px}.item{display:flex;justify-content:space-between;gap:12px;padding:13px;border-radius:16px;background:#091626;border:1px solid rgba(255,255,255,.07)}.bar{height:12px;background:#0a1727;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.58);display:none;place-items:center;padding:20px;z-index:20}.modal-card{width:min(620px,100%);background:#0d1b2e;border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:24px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center}.close{background:#142943;border:1px solid var(--line);color:white;border-radius:12px;padding:8px 12px;cursor:pointer}@media(max-width:1000px){.login-card,.shell,.section{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:36px}}@media(max-width:620px){.grid{grid-template-columns:1fr}.main{padding:18px}.topbar{align-items:flex-start;flex-direction:column}.login-form,.brand-side{padding:28px}.actions{width:100%}.btn{width:100%}}
   </style>
 </head>
-<body><main><div class="badge">Reset</div><h1>Billing Dentasejahteragroup</h1><p>Halaman ini sedang disiapkan ulang. Sistem billing akan dibangun kembali dengan konsep baru.</p></main></body>
+<body>
+  <section class="login" id="loginScreen">
+    <div class="login-card">
+      <div class="brand-side">
+        <div class="logo"><img src="assets/dentanet-logo.png" alt="Dentanet"><div><b>Dentanet Billing</b><div class="muted">Denta Sejahtera Group</div></div></div>
+        <div class="tag">● Billing Internet V1</div>
+        <h1 class="hero-title">Kontrol pelanggan, pembayaran, dan pemasukan dalam satu dashboard.</h1>
+        <p class="hero-copy">Prototype awal untuk operasional billing ISP: data pelanggan, status lunas/belum lunas, pelanggan ON/OFF, paket internet, dan laporan pemasukan harian-bulanan.</p>
+      </div>
+      <form class="login-form" onsubmit="login(event)">
+        <h2>Login Admin</h2><p class="muted">Demo: isi bebas untuk masuk ke dashboard.</p>
+        <div class="field"><label>Username</label><input required value="admin" autocomplete="username"></div>
+        <div class="field"><label>Password</label><input required value="admin123" type="password" autocomplete="current-password"></div>
+        <button class="btn" type="submit">Masuk Dashboard</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="app" id="appScreen">
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="logo"><img src="assets/dentanet-logo.png" alt="Dentanet"><div><b>Dentanet</b><div class="muted">Billing Center</div></div></div>
+        <nav class="nav">
+          <button class="active" data-view="dashboard">Dashboard</button>
+          <button data-view="packages">Paket Internet</button>
+          <button data-view="customers">Data Pelanggan</button>
+          <button data-view="paid">Sudah Lunas</button>
+          <button data-view="unpaid">Belum Lunas</button>
+          <button data-view="reports">Laporan Pemasukan</button>
+        </nav>
+      </aside>
+      <main class="main">
+        <div class="topbar">
+          <div><h1 id="pageTitle">Dashboard Billing</h1><div class="sub">Ringkasan operasional internet bulan ini.</div></div>
+          <div class="actions"><button class="btn gold" onclick="openPayment()">+ Tambah Pembayaran</button><button class="btn secondary" onclick="renderCustomers('all')">Refresh Data</button></div>
+        </div>
+        <div id="content"></div>
+      </main>
+    </div>
+  </section>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-head"><h2 id="modalTitle">Tambah Pembayaran</h2><button class="close" onclick="closeModal()">Tutup</button></div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+<script>
+const rupiah=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
+const today='2026-06-28';
+let customers=[
+ {id:'DN-0001',name:'Budi Santoso',address:'Donomulyo',phone:'081234567001',pkg:'Home 10 Mbps',price:150000,last:'2026-06-10',reg:'2026-01-12',due:'2026-06-25',active:true,paid:true},
+ {id:'DN-0002',name:'Siti Aminah',address:'Banjarejo RT 11',phone:'081234567002',pkg:'Home 20 Mbps',price:220000,last:'2026-05-21',reg:'2026-02-03',due:'2026-06-20',active:true,paid:false},
+ {id:'DN-0003',name:'Agus Prasetyo',address:'Tempursari',phone:'081234567003',pkg:'UMKM 30 Mbps',price:350000,last:'2026-06-27',reg:'2025-12-18',due:'2026-06-28',active:true,paid:true},
+ {id:'DN-0004',name:'Dewi Lestari',address:'Sumberoto',phone:'081234567004',pkg:'Home 10 Mbps',price:150000,last:'2026-04-15',reg:'2026-03-06',due:'2026-06-15',active:false,paid:false},
+ {id:'DN-0005',name:'Pak Joko',address:'Kedungsalam',phone:'081234567005',pkg:'Home 15 Mbps',price:180000,last:'2026-06-28',reg:'2026-04-20',due:'2026-07-01',active:true,paid:true},
+ {id:'DN-0006',name:'Warung Mbak Lina',address:'Donomulyo Pasar',phone:'081234567006',pkg:'UMKM 30 Mbps',price:350000,last:'2026-05-30',reg:'2025-10-02',due:'2026-06-30',active:true,paid:false}
+];
+const packages=[['Home 10 Mbps','10 Mbps',150000,'Aktif'],['Home 15 Mbps','15 Mbps',180000,'Aktif'],['Home 20 Mbps','20 Mbps',220000,'Aktif'],['UMKM 30 Mbps','30 Mbps',350000,'Aktif']];
+let payments=[
+ {date:'2026-06-28',name:'Pak Joko',amount:180000,method:'Cash'},
+ {date:'2026-06-27',name:'Agus Prasetyo',amount:350000,method:'Transfer'},
+ {date:'2026-06-10',name:'Budi Santoso',amount:150000,method:'Cash'},
+ {date:'2026-05-30',name:'Warung Mbak Lina',amount:350000,method:'Transfer'}
+];
+function login(e){e.preventDefault();loginScreen.style.display='none';appScreen.style.display='block';renderDashboard()}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');route(b.dataset.view)});
+function route(v){ if(v==='dashboard')renderDashboard(); if(v==='packages')renderPackages(); if(v==='customers')renderCustomers('all'); if(v==='paid')renderCustomers('paid'); if(v==='unpaid')renderCustomers('unpaid'); if(v==='reports')renderReports(); }
+function stats(){return {on:customers.filter(c=>c.active).length,off:customers.filter(c=>!c.active).length,paid:customers.filter(c=>c.paid).length,unpaid:customers.filter(c=>!c.paid).length,today:payments.filter(p=>p.date===today).reduce((a,p)=>a+p.amount,0),month:payments.filter(p=>p.date.startsWith('2026-06')).reduce((a,p)=>a+p.amount,0)}}
+function metric(label,value,hint,cls){return `<div class="card metric"><div><small>${label}</small><strong>${value}</strong><div class="muted">${hint}</div></div><span class="pill ${cls}">LIVE</span></div>`}
+function renderDashboard(){pageTitle.textContent='Dashboard Billing';let s=stats();content.innerHTML=`<div class="grid">${metric('Pelanggan ON',s.on,'aktif berlangganan','green')}${metric('Pelanggan OFF',s.off,'nonaktif / isolir','red')}${metric('Sudah Lunas',s.paid,'bulan berjalan','blue')}${metric('Belum Lunas',s.unpaid,'perlu follow up','gold')}${metric('Pemasukan Hari Ini',rupiah(s.today),'dari transaksi hari ini','green')}${metric('Pemasukan Bulan Ini',rupiah(s.month),'Juni 2026','blue')}</div><div class="section"><div class="card"><h2>Pelanggan Jatuh Tempo</h2><div class="list">${customers.filter(c=>!c.paid).map(c=>`<div class="item"><div><b>${c.name}</b><div class="muted">${c.id} • ${c.due} • ${c.pkg}</div></div><span class="pill red">${rupiah(c.price)}</span></div>`).join('')}</div></div><div class="card"><h2>Pembayaran Terakhir</h2><div class="list">${payments.slice(0,5).map(p=>`<div class="item"><div><b>${p.name}</b><div class="muted">${p.date} • ${p.method}</div></div><b>${rupiah(p.amount)}</b></div>`).join('')}</div><h3>Progress Bulanan</h3><div class="bar"><span style="width:${Math.min(100,s.month/14000)}%"></span></div><p class="muted">Target visual sementara untuk tracking pemasukan.</p></div></div>`}
+function renderPackages(){pageTitle.textContent='Paket Internet';content.innerHTML=`<div class="card"><div class="toolbar"><h2>Master Paket</h2><button class="btn">+ Tambah Paket</button></div><div class="table-wrap"><table><thead><tr><th>No</th><th>Nama Paket</th><th>Kecepatan</th><th>Harga</th><th>Status</th><th>Aksi</th></tr></thead><tbody>${packages.map((p,i)=>`<tr><td>${i+1}</td><td><b>${p[0]}</b></td><td>${p[1]}</td><td>${rupiah(p[2])}</td><td><span class="pill green">${p[3]}</span></td><td><div class="mini-actions"><button>Edit</button><button>Nonaktifkan</button></div></td></tr>`).join('')}</tbody></table></div></div>`}
+function renderCustomers(filter='all'){pageTitle.textContent=filter==='paid'?'Pelanggan Sudah Lunas':filter==='unpaid'?'Pelanggan Belum Lunas':'Data Pelanggan';let rows=customers.filter(c=>filter==='paid'?c.paid:filter==='unpaid'?!c.paid:true);content.innerHTML=`<div class="card"><div class="toolbar"><h2>${rows.length} Data</h2><div class="search"><input placeholder="Cari pelanggan..." oninput="searchRows(this.value)"><select><option>Semua Status</option><option>ON</option><option>OFF</option></select><button class="btn">+ Tambah Pelanggan</button></div></div><div class="table-wrap"><table id="custTable"><thead><tr><th>No</th><th>Aksi</th><th>ID Pelanggan</th><th>Nama Pelanggan</th><th>Alamat</th><th>Telepon</th><th>Nama Langganan</th><th>Harga</th><th>Pembayaran Terakhir</th><th>Tanggal Registrasi</th><th>Tanggal Jatuh Tempo</th><th>Status</th><th>Tagihan</th></tr></thead><tbody>${rows.map((c,i)=>`<tr><td>${i+1}</td><td><div class="mini-actions"><button onclick="alert('Edit ${c.name}')">Edit</button><button onclick="toggleActive('${c.id}')">${c.active?'Nonaktifkan':'Aktifkan'}</button><button onclick="historyPay('${c.id}')">History</button><button onclick="openPayment('${c.id}')">Bayar</button></div></td><td><b>${c.id}</b></td><td>${c.name}</td><td>${c.address}</td><td>${c.phone}</td><td>${c.pkg}</td><td>${rupiah(c.price)}</td><td>${c.last}</td><td>${c.reg}</td><td>${c.due}</td><td><span class="pill ${c.active?'green':'red'}">${c.active?'ON':'OFF'}</span></td><td><span class="pill ${c.paid?'green':'gold'}">${c.paid?'Lunas':'Belum Lunas'}</span></td></tr>`).join('')}</tbody></table></div></div>`}
+function renderReports(){pageTitle.textContent='Laporan Pemasukan';let s=stats();content.innerHTML=`<div class="grid">${metric('Hari Ini',rupiah(s.today),'28 Juni 2026','green')}${metric('Bulan Ini',rupiah(s.month),'Juni 2026','blue')}${metric('Bulan Lalu',rupiah(350000),'simulasi Mei 2026','gold')}</div><div class="section"><div class="card"><h2>Tracing Transaksi</h2><div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Pelanggan</th><th>Nominal</th><th>Metode</th></tr></thead><tbody>${payments.map(p=>`<tr><td>${p.date}</td><td>${p.name}</td><td>${rupiah(p.amount)}</td><td>${p.method}</td></tr>`).join('')}</tbody></table></div></div><div class="card"><h2>Filter Laporan</h2><div class="field"><label>Bulan</label><select><option>Juni 2026</option><option>Mei 2026</option><option>April 2026</option></select></div><button class="btn">Tampilkan</button><p class="muted">Versi backend nanti bisa export Excel/PDF.</p></div></div>`}
+function openPayment(id=''){let c=customers.find(x=>x.id===id)||customers[0];modalTitle.textContent='Tambah Pembayaran';modalBody.innerHTML=`<div class="field"><label>Pelanggan</label><select>${customers.map(x=>`<option ${x.id===c.id?'selected':''}>${x.id} - ${x.name}</option>`).join('')}</select></div><div class="field"><label>Nominal</label><input value="${c.price}"></div><div class="field"><label>Metode</label><select><option>Cash</option><option>Transfer</option><option>Lainnya</option></select></div><div class="field"><label>Catatan</label><input placeholder="Opsional"></div><button class="btn" onclick="simulatePay('${c.id}')">Simpan Pembayaran</button>`;modal.style.display='grid'}
+function closeModal(){modal.style.display='none'}
+function simulatePay(id){let c=customers.find(x=>x.id===id);c.paid=true;c.last=today;payments.unshift({date:today,name:c.name,amount:c.price,method:'Cash'});closeModal();renderDashboard()}
+function historyPay(id){let c=customers.find(x=>x.id===id);modalTitle.textContent='History Pembayaran';modalBody.innerHTML=`<h3>${c.name}</h3><div class="list">${payments.filter(p=>p.name===c.name).map(p=>`<div class="item"><div><b>${p.date}</b><div class="muted">${p.method}</div></div><b>${rupiah(p.amount)}</b></div>`).join('')||'<p class="muted">Belum ada history pembayaran.</p>'}</div>`;modal.style.display='grid'}
+function toggleActive(id){let c=customers.find(x=>x.id===id);c.active=!c.active;renderCustomers('all')}
+function searchRows(q){q=q.toLowerCase();document.querySelectorAll('#custTable tbody tr').forEach(tr=>tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none')}
+</script>
+</body>
 </html>
