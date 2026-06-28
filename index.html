@@ -58,6 +58,9 @@
   </div>
 
 <script>
+
+const $=id=>document.getElementById(id);
+const loginScreen=$('loginScreen'), appScreen=$('appScreen'), pageTitle=$('pageTitle'), content=$('content'), modal=$('modal'), modalTitle=$('modalTitle'), modalBody=$('modalBody');
 const rupiah=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(n);
 const today='2026-06-28';
 let customers=[
