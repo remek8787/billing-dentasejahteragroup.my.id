@@ -63,12 +63,16 @@ function render_header(string $title='Dashboard'): void { $active=billing_active
     </main>
   </div>
 <script>
-(function(){ if(localStorage.getItem('billingSidebarMini')==='1') document.body.classList.add('sidebar-mini'); })();
+(function(){ if(localStorage.getItem('billingSidebarHidden')==='1') document.body.classList.add('sidebar-hidden'); })();
 function toggleSidebar(forceOpen){
   const mobile = window.matchMedia('(max-width: 900px)').matches;
   if(mobile){ const open = forceOpen===undefined ? !document.body.classList.contains('sidebar-open') : forceOpen; document.body.classList.toggle('sidebar-open', open); return; }
-  document.body.classList.toggle('sidebar-mini');
-  localStorage.setItem('billingSidebarMini', document.body.classList.contains('sidebar-mini')?'1':'0');
+  document.body.classList.toggle('sidebar-hidden');
+  localStorage.setItem('billingSidebarHidden', document.body.classList.contains('sidebar-hidden')?'1':'0');
 }
+
+let touchStartX=0, touchStartY=0;
+document.addEventListener('touchstart',e=>{const t=e.touches[0];touchStartX=t.clientX;touchStartY=t.clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const t=e.changedTouches[0];const dx=t.clientX-touchStartX;const dy=Math.abs(t.clientY-touchStartY);if(dy>60)return;if(touchStartX<28&&dx>80)toggleSidebar(true);if(document.body.classList.contains('sidebar-open')&&dx<-80)toggleSidebar(false);},{passive:true});
 </script>
 </body></html><?php } ?>
