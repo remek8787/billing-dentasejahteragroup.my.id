@@ -54,7 +54,7 @@ Field:
 
 Catatan MVP statis/demo:
 
-- Login hanya simulasi frontend.
+- Login versi prototype memakai kredensial default dari owner, namun tidak ditampilkan di halaman login. Versi backend wajib memakai password hash dan session/token aman.
 - Versi backend wajib memakai password hash dan session/token aman.
 
 ### 2. Dashboard Utama
