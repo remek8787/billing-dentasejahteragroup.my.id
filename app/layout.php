@@ -62,6 +62,7 @@ function render_header(string $title='Dashboard'): void { $active=billing_active
 <?php } function render_footer(): void { ?>
     </main>
   </div>
+<script src="assets/app.js"></script>
 <script>
 (function(){ if(localStorage.getItem('billingSidebarHidden')==='1') document.body.classList.add('sidebar-hidden'); })();
 function toggleSidebar(forceOpen){
