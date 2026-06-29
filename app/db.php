@@ -97,3 +97,5 @@ function app_stats(PDO $pdo): array {
     $stmt=$pdo->prepare("SELECT COALESCE(SUM(amount),0) FROM payments WHERE invoice_month=?"); $stmt->execute([$month]); $monthIncome=(int)$stmt->fetchColumn();
     return compact('total','on','off','paid','unpaid','todayIncome','monthIncome','month');
 }
+
+function cell_attr(string $label): string { return ' data-label= . e($label) . '; }
