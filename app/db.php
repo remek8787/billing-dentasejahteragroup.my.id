@@ -67,6 +67,16 @@ function init_db(PDO $pdo): void {
         created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY(customer_id) REFERENCES customers(id)
     )");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS expenses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        expense_code TEXT UNIQUE NOT NULL,
+        title TEXT NOT NULL,
+        amount INTEGER NOT NULL DEFAULT 0,
+        spent_at TEXT NOT NULL,
+        method TEXT NOT NULL DEFAULT 'Cash',
+        notes TEXT NOT NULL DEFAULT '',
+        created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )");
 
     $exists = (int)$pdo->query("SELECT COUNT(*) FROM users")->fetchColumn();
     if (!$exists) {
@@ -100,7 +110,9 @@ function app_stats(PDO $pdo): array {
     $unpaid=max(0,$total-$paid);
     $stmt=$pdo->prepare("SELECT COALESCE(SUM(amount),0) FROM payments WHERE paid_at=?"); $stmt->execute([$today]); $todayIncome=(int)$stmt->fetchColumn();
     $stmt=$pdo->prepare("SELECT COALESCE(SUM(amount),0) FROM payments WHERE invoice_month=?"); $stmt->execute([$month]); $monthIncome=(int)$stmt->fetchColumn();
-    return compact('total','on','off','paid','unpaid','todayIncome','monthIncome','month');
+    try { $stmt=$pdo->prepare("SELECT COALESCE(SUM(amount),0) FROM expenses WHERE substr(spent_at,1,7)=?"); $stmt->execute([$month]); $monthExpense=(int)$stmt->fetchColumn(); } catch (Throwable $e) { $monthExpense=0; }
+    $monthBalance=$monthIncome-$monthExpense;
+    return compact('total','on','off','paid','unpaid','todayIncome','monthIncome','monthExpense','monthBalance','month');
 }
 
 function cell_attr(string $label): string { return ' data-label= . e($label) . '; }
