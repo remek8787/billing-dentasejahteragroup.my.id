@@ -1,3 +1,73 @@
-<?php function render_header(string $title='Dashboard'): void { ?>
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title><?=e($title)?> - Dentanet Billing</title><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="assets/style.css"></head><body class="app-body"><div class="app-shell"><aside class="sidebar"><div class="brand"><img src="assets/dentanet-logo.png" alt="Dentanet"><div><b>Dentanet</b><span>Billing Center</span></div></div><nav><a href="index.php">Dashboard</a><a href="packages.php">Paket Internet</a><a href="customers.php">Pelanggan</a><a href="payments.php">Pembayaran</a><a href="reports.php">Laporan</a></nav><div class="sidebar-foot"><div>Login sebagai<br><b><?=e($_SESSION['user']['name'] ?? 'Operator')?></b></div><a class="logout" href="logout.php">Logout</a></div></aside><main class="main"><header class="topbar"><div><p class="eyebrow">Denta Sejahtera Group</p><h1><?=e($title)?></h1></div><div class="top-actions"><a class="btn primary" href="payments.php?action=new">+ Pembayaran</a><a class="btn soft" href="customers.php?action=new">+ Pelanggan</a></div></header>
-<?php } function render_footer(): void { ?></main></div></body></html><?php } ?>
+<?php
+function billing_active_nav(): string {
+    $script = basename(parse_url($_SERVER['SCRIPT_NAME'] ?? '', PHP_URL_PATH));
+    $map = ['index.php'=>'dashboard','packages.php'=>'packages','customers.php'=>'customers','payments.php'=>'payments','reports.php'=>'reports'];
+    return $map[$script] ?? '';
+}
+function billing_nav_items(string $active): array {
+    $items = [
+        ['dashboard','index.php','⌁','Dashboard'],
+        ['packages','packages.php','▣','Paket'],
+        ['customers','customers.php','◉','Pelanggan'],
+        ['payments','payments.php','◇','Pembayaran'],
+        ['reports','reports.php','▤','Laporan'],
+    ];
+    foreach($items as &$it) $it[] = $it[0] === $active;
+    return $items;
+}
+function render_header(string $title='Dashboard'): void { $active=billing_active_nav(); $nav=billing_nav_items($active); ?>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eff6ff">
+  <title><?=e($title)?> - Dentanet Billing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="app-body">
+  <div class="mobile-shade" id="mobileShade" onclick="toggleSidebar(false)"></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="assets/dentanet-logo.png" alt="Dentanet">
+        <div class="brand-text"><b>Dentanet</b><span>Billing Center</span></div>
+      </div>
+      <nav>
+        <?php foreach($nav as $item): ?>
+          <a class="<?=$item[4]?'active':''?>" href="<?=e($item[1])?>" title="<?=e($item[3])?>"><i><?=e($item[2])?></i><span><?=e($item[3])?></span></a>
+        <?php endforeach; ?>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="operator-card"><span class="avatar-mini">A</span><div class="operator-text">Login sebagai<br><b><?=e($_SESSION['user']['name'] ?? 'Operator')?></b></div></div>
+        <a class="logout" href="logout.php">Logout</a>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="top-left">
+          <button class="icon-btn" type="button" onclick="toggleSidebar()" aria-label="Hide/show sidebar">☰</button>
+          <div><p class="eyebrow">Denta Sejahtera Group</p><h1><?=e($title)?></h1></div>
+        </div>
+        <div class="top-actions"><a class="btn primary" href="payments.php?action=new">+ Pembayaran</a><a class="btn soft" href="customers.php?action=new">+ Pelanggan</a></div>
+      </header>
+<?php } function render_footer(): void { ?>
+    </main>
+  </div>
+<script>
+(function(){
+  if(localStorage.getItem('billingSidebarMini')==='1') document.body.classList.add('sidebar-mini');
+})();
+function toggleSidebar(forceOpen){
+  const mobile = window.matchMedia('(max-width: 860px)').matches;
+  if(mobile){
+    const open = forceOpen===undefined ? !document.body.classList.contains('sidebar-open') : forceOpen;
+    document.body.classList.toggle('sidebar-open', open);
+    return;
+  }
+  document.body.classList.toggle('sidebar-mini');
+  localStorage.setItem('billingSidebarMini', document.body.classList.contains('sidebar-mini')?'1':'0');
+}
+</script>
+</body></html><?php } ?>
