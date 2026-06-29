@@ -16,6 +16,24 @@ def money(v):
     nums=re.sub(r'[^0-9]','',s)
     return int(nums or 0)
 
+def phone_norm(v):
+    s=re.sub(r'[^0-9+]','',clean(v))
+    if s in ('','0','00','000','08') or len(re.sub(r'[^0-9]','',s)) < 9:
+        return ''
+    digits=re.sub(r'[^0-9]','',s)
+    if digits.startswith('0'):
+        digits='62'+digits[1:]
+    elif digits.startswith('8'):
+        digits='62'+digits
+    return digits
+
+def address_norm(v):
+    s=clean(v).upper()
+    if s.lower() in ('in','-', '.', '0', '00'):
+        return ''
+    s=re.sub(r'\s*/\s*','/',s)
+    return s
+
 def ym(v):
     s=clean(v)
     months={'january':'01','february':'02','march':'03','april':'04','may':'05','june':'06','july':'07','august':'08','september':'09','october':'10','november':'11','december':'12','januari':'01','februari':'02','maret':'03','mei':'05','juni':'06','juli':'07','agustus':'08','oktober':'10','desember':'12'}
@@ -46,7 +64,7 @@ c=conn.cursor()
 c.executescript('''
 CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,username TEXT UNIQUE NOT NULL,password_hash TEXT NOT NULL,role TEXT NOT NULL DEFAULT 'admin',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
 CREATE TABLE packages (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT NOT NULL,speed TEXT NOT NULL,price INTEGER NOT NULL DEFAULT 0,is_active INTEGER NOT NULL DEFAULT 1,created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP);
-CREATE TABLE customers (id INTEGER PRIMARY KEY AUTOINCREMENT,customer_code TEXT UNIQUE NOT NULL,name TEXT NOT NULL,address TEXT NOT NULL DEFAULT '',phone TEXT NOT NULL DEFAULT '',package_id INTEGER,registered_at TEXT NOT NULL,due_day INTEGER NOT NULL DEFAULT 20,is_active INTEGER NOT NULL DEFAULT 1,notes TEXT NOT NULL DEFAULT '',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(package_id) REFERENCES packages(id));
+CREATE TABLE customers (id INTEGER PRIMARY KEY AUTOINCREMENT,customer_code TEXT UNIQUE NOT NULL,name TEXT NOT NULL,address TEXT NOT NULL DEFAULT '',phone TEXT NOT NULL DEFAULT '',package_id INTEGER,registered_at TEXT NOT NULL,due_day INTEGER NOT NULL DEFAULT 20,is_active INTEGER NOT NULL DEFAULT 1,router_name TEXT NOT NULL DEFAULT '',onu_name TEXT NOT NULL DEFAULT '',notes TEXT NOT NULL DEFAULT '',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(package_id) REFERENCES packages(id));
 CREATE TABLE payments (id INTEGER PRIMARY KEY AUTOINCREMENT,payment_code TEXT UNIQUE NOT NULL,customer_id INTEGER NOT NULL,invoice_month TEXT NOT NULL,amount INTEGER NOT NULL DEFAULT 0,paid_at TEXT NOT NULL,method TEXT NOT NULL DEFAULT 'Cash',received_by TEXT NOT NULL DEFAULT '',notes TEXT NOT NULL DEFAULT '',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY(customer_id) REFERENCES customers(id));
 ''')
 # keep known default hash produced by PHP unavailable; insert bcrypt-ish placeholder impossible. Use existing hash from current DB if present later? login app can still recreate? We'll copy from current downloaded DB later if available. For now PHP password_hash impossible in python; use pre-existing hash from backup DB if sqlite readable.
@@ -61,11 +79,14 @@ for r in data['customers']['data']:
     old_id=clean(r[0] if len(r)>0 else '')
     code=clean(r[2] if len(r)>2 else '') or old_id
     name=clean(r[3] if len(r)>3 else '') or code
-    addr=clean(r[4] if len(r)>4 else '')
-    phone=clean(r[6] if len(r)>6 else '')
+    addr=address_norm(r[4] if len(r)>4 else '')
+    phone=phone_norm(r[6] if len(r)>6 else '')
     pkg=clean(r[9] if len(r)>9 else '') or 'Paket Lama'
     speed=clean(r[10] if len(r)>10 else '') or '-'
     price=money(r[11] if len(r)>11 else 0)
+    old_note=clean(r[10] if len(r)>10 else '')
+    router_name=clean(r[15] if len(r)>15 else '')
+    onu_name=clean(r[20] if len(r)>20 else '')
     status=clean(r[17] if len(r)>17 else '').lower()
     reg=ymd(r[21] if len(r)>21 else '')
     due=due_day(r[22] if len(r)>22 else '')
@@ -74,18 +95,18 @@ for r in data['customers']['data']:
         c.execute('INSERT INTO packages(name,speed,price,is_active) VALUES(?,?,?,1)',key)
         pkg_map[key]=c.lastrowid
     is_active=0 if any(x in status for x in ['off','non','putus','stop','isolir']) else 1
-    notes='Migrasi dari e-Billing akun 6778'
-    customers.append((code,name,addr,phone,pkg_map[key],reg,due,is_active,notes))
+    notes=old_note or 'Migrasi dari e-Billing akun 6778'
+    customers.append((code,name,addr,phone,pkg_map[key],reg,due,is_active,router_name,onu_name,notes))
     if old_id: oldid_to_code[old_id]=code
 
 code_to_id={}
 for rec in customers:
     code=rec[0]
     try:
-        c.execute('INSERT INTO customers(customer_code,name,address,phone,package_id,registered_at,due_day,is_active,notes) VALUES(?,?,?,?,?,?,?,?,?)',rec)
+        c.execute('INSERT INTO customers(customer_code,name,address,phone,package_id,registered_at,due_day,is_active,router_name,onu_name,notes) VALUES(?,?,?,?,?,?,?,?,?,?,?)',rec)
     except sqlite3.IntegrityError:
         rec=list(rec); rec[0]=rec[0]+'-'+hashlib.md5(rec[1].encode()).hexdigest()[:4]
-        c.execute('INSERT INTO customers(customer_code,name,address,phone,package_id,registered_at,due_day,is_active,notes) VALUES(?,?,?,?,?,?,?,?,?)',rec)
+        c.execute('INSERT INTO customers(customer_code,name,address,phone,package_id,registered_at,due_day,is_active,router_name,onu_name,notes) VALUES(?,?,?,?,?,?,?,?,?,?,?)',rec)
         code=rec[0]
     code_to_id[code]=c.lastrowid
 # also map by name for payments because ipl lacks code

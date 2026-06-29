@@ -45,10 +45,15 @@ function init_db(PDO $pdo): void {
         registered_at TEXT NOT NULL,
         due_day INTEGER NOT NULL DEFAULT 20,
         is_active INTEGER NOT NULL DEFAULT 1,
+        router_name TEXT NOT NULL DEFAULT '',
+        onu_name TEXT NOT NULL DEFAULT '',
         notes TEXT NOT NULL DEFAULT '',
         created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY(package_id) REFERENCES packages(id)
     )");
+    try { $pdo->exec("ALTER TABLE customers ADD COLUMN router_name TEXT NOT NULL DEFAULT ''"); } catch (Throwable $e) {}
+    try { $pdo->exec("ALTER TABLE customers ADD COLUMN onu_name TEXT NOT NULL DEFAULT ''"); } catch (Throwable $e) {}
+
     $pdo->exec("CREATE TABLE IF NOT EXISTS payments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         payment_code TEXT UNIQUE NOT NULL,
